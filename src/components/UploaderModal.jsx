@@ -1,7 +1,7 @@
 import { CloudinaryContext } from 'cloudinary-react';
 import axios from 'axios'
 import { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { setPlaylist } from '../store/playlistSlice.js';
 
 const cloudName = String(import.meta.env.VITE_APP_CLOUD_NAME);
@@ -10,15 +10,15 @@ const cloudinaryUrl = `https://api.cloudinary.com/v1_1/${cloudName}/upload`;
 
 function UploaderModal({ setIsModalOpen }) {
   const dispatch = useDispatch();
+  const { playlist } = useSelector(state => state.playlist)
   const [uploading, setUploading] = useState(false);
-  const [uploads, setUploads] = useState([]);
 
   function saveToStorage(key, data) {
     try {
       if (typeof localStorage !== 'undefined') {
         localStorage.setItem(key, JSON.stringify(data));
-        console.log("Data Saved")
-        dispatch(setPlaylist([data]))
+        dispatch(setPlaylist([...playlist, data]))
+        setIsModalOpen(false)
       } else {
         console.warn('Storage not available');
       }
@@ -45,9 +45,6 @@ function UploaderModal({ setIsModalOpen }) {
         url: response.data.secure_url,
         fileName: file.name,
       };
-      console.log('Data saved:', uploadObject);
-
-      setUploads((prevUploads) => [...prevUploads, uploadObject]);
       saveToStorage(`upload-${uploadObject.fileName}`, uploadObject);
 
     } catch (error) {

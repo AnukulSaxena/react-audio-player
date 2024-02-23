@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import Header from './components/Header.jsx';
 import { setPlaylist } from './store/playlistSlice.js';
 import { useDispatch } from 'react-redux';
+import AudioPlayer from './components/AudioPlayer.jsx';
 
 const App = () => {
-  const [songs, setSongs] = useState([]);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -15,9 +15,7 @@ const App = () => {
 
         if (uploadedSongs.length > 0) {
           const parsedSongs = uploadedSongs.map(([key, value]) => JSON.parse(value));
-          setSongs(parsedSongs);
           dispatch(setPlaylist(parsedSongs))
-          console.log('Songs retrieved from localStorage:', parsedSongs);
         }
       } catch (error) {
         console.error('Error retrieving songs from localStorage:', error);
@@ -25,12 +23,14 @@ const App = () => {
     };
 
     getSongsFromLocalStorage();
+
   }, []);
 
 
   return (
-    <div className='w-full min-h-screen text-neutral-200 relative'>
+    <div className='w-full flex justify-center items-center bg-neutral-300 min-h-screen text-neutral-200'>
       <Header />
+      <AudioPlayer />
     </div>
   );
 };

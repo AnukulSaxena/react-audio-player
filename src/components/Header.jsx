@@ -5,7 +5,7 @@ const Header = () => {
   const [isModalOpen, setIsModalOpen] = useState(false)
   return (
     <>
-      <div className='bg-neutral-900 px-5 md:px-10 flex justify-between fixed top-0 w-full h-20'>
+      <div className='bg-neutral-900 left-0 px-5 md:px-10 flex justify-between fixed top-0 w-full h-20'>
         <div>
 
         </div>

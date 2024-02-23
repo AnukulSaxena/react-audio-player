@@ -8,7 +8,7 @@ export const playlistSlice = createSlice({
     initialState,
     reducers: {
         setPlaylist: (state, actions) => {
-            state.playlist = [...state.playlist, ...actions.payload]
+            state.playlist = actions.payload;
         },
     },
 })
