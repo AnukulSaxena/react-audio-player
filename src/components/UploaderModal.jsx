@@ -2,7 +2,7 @@ import { CloudinaryContext } from 'cloudinary-react';
 import axios from 'axios'
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { setPlaylist } from '../store/playlistSlice.js';
+import { setPlaylist, setUploading } from '../store/playlistSlice.js';
 
 const cloudName = String(import.meta.env.VITE_APP_CLOUD_NAME);
 const uploadPreset = String(import.meta.env.VITE_APP_UPLOAD_PRESET)
@@ -10,8 +10,7 @@ const cloudinaryUrl = `https://api.cloudinary.com/v1_1/${cloudName}/upload`;
 
 function UploaderModal({ setIsModalOpen }) {
   const dispatch = useDispatch();
-  const { playlist } = useSelector(state => state.playlist)
-  const [uploading, setUploading] = useState(false);
+  const { playlist, uploading } = useSelector(state => state.playlist)
 
   function saveToStorage(key, data) {
     try {
@@ -33,7 +32,7 @@ function UploaderModal({ setIsModalOpen }) {
       if (files.length < 1)
         return 0;
 
-      setUploading(true);
+      dispatch(setUploading(true));
       const file = files[0];
       const formData = new FormData();
       formData.append('file', file);
@@ -50,7 +49,7 @@ function UploaderModal({ setIsModalOpen }) {
     } catch (error) {
       console.error(error)
     } finally {
-      setUploading(false);
+      dispatch(setUploading(false));
     }
   };
 
