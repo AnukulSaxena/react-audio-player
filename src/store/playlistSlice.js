@@ -1,6 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit'
 const initialState = {
-    playlist: []
+    playlist: [],
+    uploading: false
 }
 
 export const playlistSlice = createSlice({
@@ -10,9 +11,12 @@ export const playlistSlice = createSlice({
         setPlaylist: (state, actions) => {
             state.playlist = actions.payload;
         },
+        setUploading: (state, actions) => {
+            state.uploading = actions.payload;
+        }
     },
 })
 
-export const { setPlaylist } = playlistSlice.actions
+export const { setPlaylist, setUploading } = playlistSlice.actions
 
 export default playlistSlice.reducer

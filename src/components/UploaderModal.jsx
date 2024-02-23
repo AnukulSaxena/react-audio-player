@@ -56,7 +56,7 @@ function UploaderModal({ setIsModalOpen }) {
 
   return (
     <CloudinaryContext cloudName={cloudName}>
-      <div className='fixed inset-0 flex justify-center bg-opacity-30 bg-black backdrop-blur-sm items-center'>
+      <div className='fixed z-40 inset-0 flex justify-center bg-opacity-30 bg-black backdrop-blur-sm items-center'>
         <div className='w-96 flex-col flex rounded-sm h-40 bg-neutral-900 px-5'>
           <div className='w-full h-12 py-2 border-b border-neutral-200 flex justify-end'>
             <button
